@@ -2,6 +2,13 @@
 
 🚀 This repository contains the Postman Framework for testing various endpoints. The framework utilizes Postman collections and environments for organized and automated API testing.
 
+Want to know how to write tests in POSTMAN? 
+click here [Postman-Test-Scripts](https://medium.com/@alex_rodriguez_soto/postman-test-scripts-4c6ef7a39f5f)
+
+click here [Newman-Execution-Guide](https://medium.com/@alex_rodriguez_soto/step-by-step-guide-to-running-newman-tests-8f990a639343)
+<img width="556" alt="image" src="https://github.com/edu-tech-opensource/postman-workspace-project/assets/151805074/325efc64-cd8c-4229-851c-57af137e92ee">
+
+
 ## API Documentation
 
 ### Swagger Documentation
