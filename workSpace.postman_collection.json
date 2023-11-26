@@ -1,0 +1,1476 @@
+{
+	"info": {
+		"_postman_id": "b155d2a2-18cc-4365-9282-82bbb8aa909a",
+		"name": "workSpace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11204499"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "login upload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData;",
+									"",
+									"try {",
+									"    responseData = pm.response.json();",
+									"} catch (e) {",
+									"    console.error(e);",
+									"}",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setEnvironmentVariable(\"token\", responseData.token);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authority",
+								"value": "api.octoperf.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "content-type",
+								"value": "application/x-www-form-urlencoded;charset=UTF-8"
+							},
+							{
+								"key": "cookie",
+								"value": "_ga=GA1.1.388003686.1679836773; slaask-token-5a5eed8e193aa4456766852b0d3bdd64=pk3uhokga7dhdondwzwcsvjqkdk8ri1hemktpdvks3; __stripe_mid=5c90b8c2-19ac-4e39-b4ae-4e2dff6b9daf1a7399; slaask-token-spk-914bb45d-bab2-40eb-a7f5-b9d5dc31679b=29ypoappjlhvixqf3gh89jp6ex7xrinjfgzw6hhcw6g; __stripe_sid=10d58b1b-79b0-43e4-b667-bfa7880745e77ca1d6; ab.storage.sessionId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225d9805af-82fb-c4d3-3269-6bda609383a0%22%2C%22e%22%3A1680363870409%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270409%7D; ab.storage.deviceId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225b5f7d83-7ea2-8847-86c3-a946bacba285%22%2C%22c%22%3A1679836783852%2C%22l%22%3A1680360270410%7D; ab.storage.userId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%227640d69d-ebe9-456b-8514-6dd6f5a5431c%22%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270410%7D; _ga_Q0Q7BY8NRR=GS1.1.1680360215.3.1.1680360790.0.0.0"
+							},
+							{
+								"key": "dnt",
+								"value": "1"
+							},
+							{
+								"key": "origin",
+								"value": "https://api.octoperf.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://api.octoperf.com/app/"
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-origin"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseurl}}/public/users/login?username={{user}}&password={{pass}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"public",
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{user}}"
+								},
+								{
+									"key": "password",
+									"value": "{{pass}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "currentUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData;",
+									"",
+									"try {",
+									"    responseData = pm.response.json();",
+									"} catch (e) {",
+									"    console.error(e);",
+									"}",
+									"",
+									"pm.test(\"Status code is 200 for /public/users/login\", function () {",
+									"    try {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    } catch (err) {",
+									"        console.log(\"Status code is not 200: \" + err);",
+									"        throw new Error(\"Status code is not 200\");",
+									"    }",
+									"});",
+									"",
+									"pm.test(\"Status code name has string OK\", () => {",
+									"  pm.response.to.have.status(\"OK\");",
+									"});",
+									"",
+									"pm.test(\"verify content type is Json body for [login]\", function() {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "api.octoperf.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9,es;q=0.8"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvY3RvcGVyZiIsImlhdCI6MTY4NjExMTYyMCwiZXhwIjoxNjg2MTk4MDIwLCJpZCI6IjFrdDN0SGdCNlQyOVRxblNDamUzIiwiaGFzaCI6IjQ3MGNmNmQ2OTBmMTc1NjQxYjQ1MzBlNDU1ZmFmOGZmIn0.NRBJEWfjCxTUA5QnXdQGdWBeD0WMgUtmNa3-Qm-lciI",
+								"disabled": true
+							},
+							{
+								"key": "cookie",
+								"value": "slaask-token-spk-914bb45d-bab2-40eb-a7f5-b9d5dc31679b=mgs92gr0mtk1dntojoze0t9olko0hkic3cmtuu2kwhl; _ga=GA1.2.1912853454.1686111576; _gid=GA1.2.1532520297.1686111581; _gat=1; __stripe_mid=787f3786-b1e4-485b-baf0-f9d65e6d1c446cc0d0; __stripe_sid=18574653-0abd-4d77-af99-ac492c6f2a577ab1d9; _ga_Q0Q7BY8NRR=GS1.1.1686111575.1.1.1686111615.0.0.0"
+							},
+							{
+								"key": "referer",
+								"value": "https://api.octoperf.com/app/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-origin"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/users/current",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData;",
+							"",
+							"try {",
+							"    responseData = pm.response.json();",
+							"} catch (e) {",
+							"    console.error(e);",
+							"}",
+							"",
+							"pm.test(\"Status code is 200 for /public/users/login\", function () {",
+							"    try {",
+							"        pm.expect(pm.response.code).to.equal(200);",
+							"    } catch (err) {",
+							"        console.log(\"Status code is not 200: \" + err);",
+							"        throw new Error(\"Status code is not 200\");",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Status code name has string OK\", () => {",
+							"  pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"verify content type is Json body for [login]\", function() {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"postman.setEnvironmentVariable(\"token\", responseData.token);",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "api.octoperf.com"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-type",
+						"value": "application/x-www-form-urlencoded;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "_ga=GA1.1.388003686.1679836773; slaask-token-5a5eed8e193aa4456766852b0d3bdd64=pk3uhokga7dhdondwzwcsvjqkdk8ri1hemktpdvks3; __stripe_mid=5c90b8c2-19ac-4e39-b4ae-4e2dff6b9daf1a7399; slaask-token-spk-914bb45d-bab2-40eb-a7f5-b9d5dc31679b=29ypoappjlhvixqf3gh89jp6ex7xrinjfgzw6hhcw6g; __stripe_sid=10d58b1b-79b0-43e4-b667-bfa7880745e77ca1d6; ab.storage.sessionId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225d9805af-82fb-c4d3-3269-6bda609383a0%22%2C%22e%22%3A1680363870409%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270409%7D; ab.storage.deviceId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225b5f7d83-7ea2-8847-86c3-a946bacba285%22%2C%22c%22%3A1679836783852%2C%22l%22%3A1680360270410%7D; ab.storage.userId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%227640d69d-ebe9-456b-8514-6dd6f5a5431c%22%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270410%7D; _ga_Q0Q7BY8NRR=GS1.1.1680360215.3.1.1680360790.0.0.0"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "origin",
+						"value": "https://api.octoperf.com"
+					},
+					{
+						"key": "referer",
+						"value": "https://api.octoperf.com/app/"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseurl}}/public/users/login?username={{username}}&password={{password}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"public",
+						"users",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_workspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData;",
+							"",
+							"try {",
+							"    responseData = pm.response.json();",
+							"} catch (e) {",
+							"    console.error(e);",
+							"}",
+							"",
+							"pm.environment.set(\"WorkspaceId\", responseData.id);",
+							"pm.environment.set(\"userId\", responseData.userId);",
+							"pm.environment.set(\"name\", responseData.name);",
+							"pm.environment.set(\"description\", responseData.description);",
+							"",
+							"pm.test(\"Status code is 201 for endpoint /workspaces\", function () {",
+							"    try {",
+							"        pm.expect(pm.response.code).to.equal(201);",
+							"    } catch (err) {",
+							"        console.log(\"Status code is not 201: \" + err);",
+							"        throw new Error(\"Status code is not 201\");",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Verify content type is application/json for endpoint /workspaces\", function() {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"    pm.expect(pm.response.json()).to.not.be.null;",
+							"    pm.expect(pm.response.json()).to.be.an('object');",
+							"    pm.expect(pm.response.json().data).to.not.an('array');",
+							"});",
+							"",
+							"// Set up expected data",
+							"const expectedData = {",
+							"    name: pm.environment.get(\"expectedName\"),",
+							"    description: pm.environment.get(\"expectedDescription\"),",
+							"    userId: pm.environment.get(\"expectedUserId\")",
+							"};",
+							"",
+							"// Validate response body against expected data",
+							"pm.test(\"Response body matches expected data for name and description for endpoint /workspaces\", function () {",
+							"    pm.expect(responseData.name).to.eql(expectedData.name);",
+							"    pm.expect(responseData.description).to.eql(expectedData.description);",
+							"});",
+							"",
+							"// try catch to verify if response body is empty and then verify response body",
+							"try {",
+							"  pm.test(\"Response body is not empty for endpoint /workspaces\", function () {",
+							"    pm.expect(pm.response.text()).not.to.be.empty;",
+							"  });",
+							"",
+							"  pm.test(\"Response body contains expected property for userId endpoint /workspaces\", function () {",
+							"    pm.expect(responseData.userId).to.eql(expectedData.userId);",
+							"  });",
+							"} catch (error) {",
+							"  console.log(\"Error: \" + error);",
+							"}",
+							"",
+							"// Set the maximum response time in milliseconds",
+							"const maxResponseTime = 2000;",
+							"",
+							"try {",
+							"  // Get the response time in milliseconds",
+							"  const responseTime = pm.response.responseTime;",
+							"",
+							"  // Verify that the response time is within the allowed limit",
+							"  pm.expect(responseTime).to.be.below(maxResponseTime);",
+							"} catch (err) {",
+							"  // Log the error message and set the test result to failed",
+							"  console.log(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  pm.test(\"Response time is within limit\", () => {",
+							"    pm.expect.fail(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  });",
+							"}",
+							"",
+							"// Define the JSON schema",
+							"const schema = {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"created\": { \"type\": \"number\" },",
+							"    \"description\": { \"type\": \"string\" },",
+							"    \"id\": { \"type\": \"string\" },",
+							"    \"lastModified\": { \"type\": \"number\" },",
+							"    \"name\": { \"type\": \"string\" },",
+							"    \"userId\": { \"type\": \"string\" }",
+							"  },",
+							"  \"required\": [\"created\", \"description\", \"id\", \"lastModified\", \"name\", \"userId\"]",
+							"};",
+							"",
+							"// Validate the response body against the schema",
+							"// tv4 is a JSON schema validation library for JavaScript",
+							"// tv4 is used to validate the response body against that schema in the Test Scripts",
+							"const isValid = tv4.validate(responseData, schema);",
+							"",
+							"// Assert that the response body is valid",
+							"pm.test(\"JSON schema is valid for endpoint /workspaces\", function() {",
+							"    pm.expect(isValid).to.be.true;",
+							"});",
+							"",
+							"// Verify if the response body contains an error code",
+							"if (responseData.error !== undefined) {",
+							"  // Handle the error accordingly",
+							"  console.log(responseData.status);",
+							"  switch (responseData.status) {",
+							"    case 401:",
+							"      pm.test('Unauthorized error - status 401 for endpoint /workspaces', function() {",
+							"        pm.expect(responseData.error).to.equal('Unauthorized');",
+							"      });",
+							"      break;",
+							"    case 404:",
+							"      pm.test('Resource not found error - status 404 for endpoint /workspaces', function() {",
+							"        pm.expect(responseData.error).to.equal('Resource not found');",
+							"      });",
+							"      break;",
+							"    case 500:",
+							"      pm.test('Internal server error - status 500 for endpoint /workspaces', function() {",
+							"        pm.expect(responseData.error).to.equal('Internal server error');",
+							"      });",
+							"      break;",
+							"    default:",
+							"      pm.test('Unknown error view logs for endpoint /workspaces', function() {",
+							"        pm.expect.fail(`Received unknown error code: ${responseData.status}`);",
+							"      });",
+							"  }",
+							"}",
+							"",
+							"// Verify if a environment is set correctly ",
+							"if (pm.environment && pm.environment.name) {",
+							"  console.log(\"Environment is defined:\", pm.environment.name);",
+							"  pm.test(\"Environment is defined as: \" + pm.environment.name, function() {",
+							"    pm.expect(pm.environment.name).to.be.ok;",
+							"  });",
+							"} else {",
+							"  console.log(\"Environment is not defined\");",
+							"  pm.test(\"Environment is not defined\", function() {",
+							"    pm.expect.fail(\"Environment is not defined\");",
+							"  });",
+							"}",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const randomString = Math.random().toString(36).substring(7);",
+							"",
+							"pm.environment.set(\"name\", randomString);",
+							"",
+							"pm.environment.set(\"expectedName\", pm.environment.get(\"name\"));",
+							"pm.environment.set(\"expectedDescription\", \"created a new workspace \"+ pm.environment.get(\"name\"));",
+							"pm.environment.set(\"expectedUserId\", \"1kt3tHgB6T29TqnSCje3\");",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "api.octoperf.com"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJvY3RvcGVyZiIsImlkIjoiSHhnY0hvY0Jra0NTd3F5SW0wZFIiLCJleHAiOjE2ODEyNjIxNjYsImlhdCI6MTY4MTE3NTc2NiwiaGFzaCI6ImZmYzQ0MDE2YjA1Y2Q0NjcxNTBlNzk5MmY0Y2UwNzY5In0.FJIAa61-w2dS-agaaYjA_sA_AokalMLkCmlhq4UWne4"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "_ga=GA1.1.388003686.1679836773; slaask-token-5a5eed8e193aa4456766852b0d3bdd64=pk3uhokga7dhdondwzwcsvjqkdk8ri1hemktpdvks3; __stripe_mid=5c90b8c2-19ac-4e39-b4ae-4e2dff6b9daf1a7399; slaask-token-spk-914bb45d-bab2-40eb-a7f5-b9d5dc31679b=29ypoappjlhvixqf3gh89jp6ex7xrinjfgzw6hhcw6g; ab.storage.sessionId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225d9805af-82fb-c4d3-3269-6bda609383a0%22%2C%22e%22%3A1680363870409%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270409%7D; ab.storage.deviceId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225b5f7d83-7ea2-8847-86c3-a946bacba285%22%2C%22c%22%3A1679836783852%2C%22l%22%3A1680360270410%7D; ab.storage.userId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%227640d69d-ebe9-456b-8514-6dd6f5a5431c%22%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270410%7D; __stripe_sid=1a95ce45-bed5-4e80-8e9e-38cd06c01033ecf139; _ga_Q0Q7BY8NRR=GS1.1.1681174711.18.1.1681175789.0.0.0"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "origin",
+						"value": "https://api.octoperf.com"
+					},
+					{
+						"key": "referer",
+						"value": "https://api.octoperf.com/app/"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"\",\n    \"created\": \"2023-04-11T01:16:20.612Z\",\n    \"lastModified\": \"2023-04-11T01:16:20.612Z\",\n    \"userId\": \"HxgcHocBkkCSwqyIm0dR\",\n    \"name\": \"{{name}}\",\n    \"description\": \"{{expectedDescription}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseurl}}/workspaces",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"workspaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_Workspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData;",
+							"",
+							"try {",
+							"    responseData = pm.response.json();",
+							"} catch (e) {",
+							"    console.error(e);",
+							"}",
+							"",
+							"// pm.environment.set(\"WorkspaceId\", responseData.id);",
+							"// pm.environment.set(\"userId\", responseData.userId);",
+							"",
+							"pm.test(\"Status code is 200 for endpoint /workspaces\", function () {",
+							"    try {",
+							"        pm.expect(pm.response.code).to.equal(200);",
+							"    } catch (err) {",
+							"        console.log(\"Status code is not 200: \" + err);",
+							"        throw new Error(\"Status code is not 200\");",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Verify content type is application/json for endpoint GET /workspaces/{id}\", function() {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"    pm.expect(pm.response.json()).to.not.be.null;",
+							"    pm.expect(pm.response.json()).to.be.an('object');",
+							"    pm.expect(pm.response.json().data).to.not.an('array');",
+							"});",
+							"",
+							"// Set up expected data",
+							"const expectedData = {",
+							"    name: pm.environment.get(\"expectedName\"),",
+							"    description: pm.environment.get(\"expectedDescription\"),",
+							"    userId: pm.environment.get(\"expectedUserId\"),",
+							"    WorkspaceId: pm.environment.get(\"WorkspaceId\"),",
+							"};",
+							"",
+							"// Validate response body against expected data",
+							"pm.test(\"Response body matches expected data for name and description for endpoint GET /workspaces/{id}\", function () {",
+							"    pm.expect(responseData.name).to.eql(expectedData.name);",
+							"    pm.expect(responseData.description).to.eql(expectedData.description);",
+							"});",
+							"",
+							"// try catch to verify if response body is empty and then verify response body",
+							"try {",
+							"  pm.test(\"Response body is not empty for endpoint GET /workspaces/{id}\", function () {",
+							"    pm.expect(pm.response.text()).not.to.be.empty;",
+							"  });",
+							"",
+							"  pm.test(\"Response body contains expected property for userId for endpoint GET /workspaces/{id}\", function () {",
+							"    pm.expect(responseData.userId).to.eql(expectedData.userId);",
+							"  });",
+							"",
+							"    pm.test(\"Response body contains expected property for id for endpoint GET /workspaces/{id}\", function () {",
+							"    pm.expect(responseData.id).to.eql(expectedData.WorkspaceId);",
+							"  });",
+							"} catch (error) {",
+							"  console.log(\"Error: \" + error);",
+							"}",
+							"",
+							"// Set the maximum response time in milliseconds",
+							"const maxResponseTime = 2000;",
+							"",
+							"try {",
+							"  // Get the response time in milliseconds",
+							"  const responseTime = pm.response.responseTime;",
+							"",
+							"  // Verify that the response time is within the allowed limit",
+							"  pm.expect(responseTime).to.be.below(maxResponseTime);",
+							"} catch (err) {",
+							"  // Log the error message and set the test result to failed",
+							"  console.log(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  pm.test(\"Response time is within limit\", () => {",
+							"    pm.expect.fail(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  });",
+							"}",
+							"",
+							"// Define the JSON schema",
+							"const schema = {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"created\": { \"type\": \"number\" },",
+							"    \"description\": { \"type\": \"string\" },",
+							"    \"id\": { \"type\": \"string\" },",
+							"    \"lastModified\": { \"type\": \"number\" },",
+							"    \"name\": { \"type\": \"string\" },",
+							"    \"userId\": { \"type\": \"string\" }",
+							"  },",
+							"  \"required\": [\"created\", \"description\", \"id\", \"lastModified\", \"name\", \"userId\"]",
+							"};",
+							"",
+							"// Validate the response body against the schema",
+							"// tv4 is a JSON schema validation library for JavaScript",
+							"// tv4 is used to validate the response body against that schema in the Test Scripts",
+							"const isValid = tv4.validate(responseData, schema);",
+							"",
+							"// Assert that the response body is valid",
+							"pm.test(\"JSON schema is valid for endpoint GET /workspaces/{id}\", function() {",
+							"    pm.expect(isValid).to.be.true;",
+							"});",
+							"",
+							"// Verify if the response body contains an error code",
+							"if (responseData.error !== undefined) {",
+							"  // Handle the error accordingly",
+							"  console.log(responseData.status);",
+							"  switch (responseData.status) {",
+							"    case 401:",
+							"      pm.test('Unauthorized error - status 401 for endpoint GET /workspaces/{id}', function() {",
+							"        pm.expect(responseData.error).to.equal('Unauthorized');",
+							"      });",
+							"      break;",
+							"    case 404:",
+							"      pm.test('Resource not found error - status 404 for endpoint /GET /workspaces/{id}', function() {",
+							"        pm.expect(responseData.error).to.equal('Resource not found');",
+							"      });",
+							"      break;",
+							"    case 500:",
+							"      pm.test('Internal server error - status 500 for endpoint GET /workspaces/{id}', function() {",
+							"        pm.expect(responseData.error).to.equal('Internal server error');",
+							"      });",
+							"      break;",
+							"    default:",
+							"      pm.test('Unknown error view logs for endpoint GET /workspaces/{id}', function() {",
+							"        pm.expect.fail(`Received unknown error code: ${responseData.status}`);",
+							"      });",
+							"  }",
+							"}",
+							"",
+							"// Verify if a environment is set correctly ",
+							"if (pm.environment && pm.environment.name) {",
+							"  console.log(\"Environment is defined:\", pm.environment.name);",
+							"  pm.test(\"Environment is defined as: \" + pm.environment.name, function() {",
+							"    pm.expect(pm.environment.name).to.be.ok;",
+							"  });",
+							"} else {",
+							"  console.log(\"Environment is not defined\");",
+							"  pm.test(\"Environment is not defined\", function() {",
+							"    pm.expect.fail(\"Environment is not defined\");",
+							"  });",
+							"}",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/workspaces/{{WorkspaceId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"workspaces",
+						"{{WorkspaceId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_newProject",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData;",
+							"",
+							"try {",
+							"    responseData = pm.response.json();",
+							"} catch (e) {",
+							"    console.error(e);",
+							"}",
+							"",
+							"pm.environment.set(\"projectId\", responseData.id);",
+							"pm.environment.set(\"type\", responseData.type);",
+							"",
+							"",
+							"pm.test(\"Status code is 201 for endpoint POST /design/projects\", function () {",
+							"    try {",
+							"        pm.expect(pm.response.code).to.equal(201);",
+							"    } catch (err) {",
+							"        console.log(\"Status code is not 201: \" + err);",
+							"        throw new Error(\"Status code is not 201\");",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Verify content type is application/json for endpoint POST /design/projects\", function() {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"    pm.expect(pm.response.json()).to.not.be.null;",
+							"    pm.expect(pm.response.json()).to.be.an('object');",
+							"    pm.expect(pm.response.json().data).to.not.an('array');",
+							"});",
+							"",
+							"// Set up expected data",
+							"const expectedData = {",
+							"    name: pm.environment.get(\"expectedProjectName\"),",
+							"    description: pm.environment.get(\"expectedProjectDescription\"),",
+							"    userId: pm.environment.get(\"expectedUserId\"),",
+							"    WorkspaceId: pm.environment.get(\"WorkspaceId\"),",
+							"    Type: pm.environment.get(\"expectedType\")",
+							"};",
+							"",
+							"// Validate response body against expected data",
+							"pm.test(\"Response body matches expected data for name and description for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.name).to.eql(expectedData.name);",
+							"    pm.expect(responseData.description).to.eql(expectedData.description);",
+							"});",
+							"",
+							"// try catch to verify if response body is empty and then verify response body",
+							"try {",
+							"  pm.test(\"Response body is not empty for endpoint POST /design/projects\", function () {",
+							"    pm.expect(pm.response.text()).not.to.be.empty;",
+							"  });",
+							"",
+							"  pm.test(\"Response body contains expected property userId for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.userId).to.eql(expectedData.userId);",
+							"  });",
+							"",
+							"  pm.test(\"Response body contains expected property workspaceId for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.workspaceId).to.eql(expectedData.WorkspaceId);",
+							"  });",
+							"",
+							"    pm.test(\"Response body contains expected property type for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.type).to.eql(expectedData.Type);",
+							"  });",
+							"} catch (error) {",
+							"  console.log(\"Error: \" + error);",
+							"}",
+							"",
+							"// Set the maximum response time in milliseconds",
+							"const maxResponseTime = 2000;",
+							"",
+							"try {",
+							"  // Get the response time in milliseconds",
+							"  const responseTime = pm.response.responseTime;",
+							"",
+							"  // Verify that the response time is within the allowed limit",
+							"  pm.expect(responseTime).to.be.below(maxResponseTime);",
+							"} catch (err) {",
+							"  // Log the error message and set the test result to failed",
+							"  console.log(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  pm.test(\"Response time is within limit\", () => {",
+							"    pm.expect.fail(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  });",
+							"}",
+							"",
+							"// Define the JSON schema",
+							"const schema = {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"created\": { \"type\": \"number\" },",
+							"    \"description\": { \"type\": \"string\" },",
+							"    \"id\": { \"type\": \"string\" },",
+							"    \"lastModified\": { \"type\": \"number\" },",
+							"    \"name\": { \"type\": \"string\" },",
+							"    \"userId\": { \"type\": \"string\" }",
+							"  },",
+							"  \"required\": [\"created\", \"description\", \"id\", \"lastModified\", \"name\", \"userId\"]",
+							"};",
+							"",
+							"// Validate the response body against the schema",
+							"// tv4 is a JSON schema validation library for JavaScript",
+							"// tv4 is used to validate the response body against that schema in the Test Scripts",
+							"const isValid = tv4.validate(responseData, schema);",
+							"",
+							"// Assert that the response body is valid",
+							"pm.test(\"JSON schema is valid for endpoint POST /design/projects\", function() {",
+							"    pm.expect(isValid).to.be.true;",
+							"});",
+							"",
+							"// Verify if the response body contains an error code",
+							"if (responseData.error !== undefined) {",
+							"  // Handle the error accordingly",
+							"  console.log(responseData.status);",
+							"  switch (responseData.status) {",
+							"    case 401:",
+							"      pm.test('Unauthorized error - status 401 for endpoint POST /design/projects', function() {",
+							"        pm.expect(responseData.error).to.equal('Unauthorized');",
+							"      });",
+							"      break;",
+							"    case 404:",
+							"      pm.test('Resource not found error - status 404 for endpoint POST /design/projects', function() {",
+							"        pm.expect(responseData.error).to.equal('Resource not found');",
+							"      });",
+							"      break;",
+							"    case 500:",
+							"      pm.test('Internal server error - status 500 for endpoint POST /design/projects', function() {",
+							"        pm.expect(responseData.error).to.equal('Internal server error');",
+							"      });",
+							"      break;",
+							"    default:",
+							"      pm.test('Unknown error view logs for endpoint POST /design/projects', function() {",
+							"        pm.expect.fail(`Received unknown error code: ${responseData.status}`);",
+							"      });",
+							"  }",
+							"}",
+							"",
+							"// Verify if a environment is set correctly ",
+							"if (pm.environment && pm.environment.name) {",
+							"  console.log(\"Environment is defined:\", pm.environment.name);",
+							"  pm.test(\"Environment is defined as: \" + pm.environment.name, function() {",
+							"    pm.expect(pm.environment.name).to.be.ok;",
+							"  });",
+							"} else {",
+							"  console.log(\"Environment is not defined\");",
+							"  pm.test(\"Environment is not defined\", function() {",
+							"    pm.expect.fail(\"Environment is not defined\");",
+							"  });",
+							"}",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const randomString = Math.random().toString(36).substring(7);",
+							"",
+							"pm.environment.set(\"projectName\", randomString);",
+							"pm.environment.set(\"expectedProjectName\", pm.environment.get(\"projectName\"));",
+							"pm.environment.set(\"expectedProjectDescription\", \"created a new workspace \"+ pm.environment.get(\"projectName\"));",
+							"pm.environment.set(\"expectedType\", \"DESIGN\");",
+							"",
+							"",
+							"// Import moment.js library",
+							"const moment = require('moment');",
+							"",
+							"// Get current Unix timestamp",
+							"const unixTimestamp = moment().unix();",
+							"",
+							"// Set Unix timestamp as a variable",
+							"pm.variables.set('unixTimestamp', unixTimestamp);",
+							"",
+							"// Log current Unix timestamp",
+							"console.log('Unix timestamp:', unixTimestamp);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "api.octoperf.com"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "_ga=GA1.1.388003686.1679836773; slaask-token-5a5eed8e193aa4456766852b0d3bdd64=pk3uhokga7dhdondwzwcsvjqkdk8ri1hemktpdvks3; __stripe_mid=5c90b8c2-19ac-4e39-b4ae-4e2dff6b9daf1a7399; slaask-token-spk-914bb45d-bab2-40eb-a7f5-b9d5dc31679b=29ypoappjlhvixqf3gh89jp6ex7xrinjfgzw6hhcw6g; ab.storage.sessionId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225d9805af-82fb-c4d3-3269-6bda609383a0%22%2C%22e%22%3A1680363870409%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270409%7D; ab.storage.deviceId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225b5f7d83-7ea2-8847-86c3-a946bacba285%22%2C%22c%22%3A1679836783852%2C%22l%22%3A1680360270410%7D; ab.storage.userId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%227640d69d-ebe9-456b-8514-6dd6f5a5431c%22%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270410%7D; _ga_Q0Q7BY8NRR=GS1.1.1680441787.6.1.1680442463.0.0.0; __stripe_sid=ba7cdc2d-05c5-4154-9a60-ad1e0963ee79410afc"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "origin",
+						"value": "https://api.octoperf.com"
+					},
+					{
+						"key": "referer",
+						"value": "https://api.octoperf.com/app/"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"created\": {{unixTimestamp}},\n    \"description\": \"{{expectedProjectDescription}}\",\n    \"id\": \"\",\n    \"lastModified\": {{unixTimestamp}},\n    \"name\": \"{{expectedProjectName}}\",\n    \"tags\": [],\n    \"type\": \"DESIGN\",\n    \"userId\": \"\",\n    \"workspaceId\":\"{{WorkspaceId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseurl}}/design/projects",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"design",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData;",
+							"",
+							"try {",
+							"    responseData = pm.response.json();",
+							"} catch (e) {",
+							"    console.error(e);",
+							"}",
+							"",
+							"pm.test(\"Status code is 200 for endpoint GET /design/projects/{{projectId}}\", function () {",
+							"    try {",
+							"        pm.expect(pm.response.code).to.equal(200);",
+							"    } catch (err) {",
+							"        console.log(\"Status code is not 200: \" + err);",
+							"        throw new Error(\"Status code is not 200\");",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Verify content type is application/json for endpoint GET /design/projects/{{projectId}}\", function() {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"    pm.expect(pm.response.json()).to.not.be.null;",
+							"    pm.expect(pm.response.json()).to.be.an('object');",
+							"    pm.expect(pm.response.json().data).to.not.an('array');",
+							"});",
+							"",
+							"// Set up expected data",
+							"const expectedData = {",
+							"    name: pm.environment.get(\"expectedProjectName\"),",
+							"    description: pm.environment.get(\"expectedProjectDescription\"),",
+							"    userId: pm.environment.get(\"expectedUserId\"),",
+							"    WorkspaceId: pm.environment.get(\"WorkspaceId\"),",
+							"    Type: pm.environment.get(\"expectedType\"),",
+							"    projectId: pm.environment.get(\"projectId\")",
+							"};",
+							"",
+							"// Validate response body against expected data",
+							"pm.test(\"Response body matches expected data for name and description for endpoint GET /design/projects/{{projectId}}\", function () {",
+							"    pm.expect(responseData.name).to.eql(expectedData.name);",
+							"    pm.expect(responseData.description).to.eql(expectedData.description);",
+							"});",
+							"",
+							"// try catch to verify if response body is empty and then verify response body",
+							"try {",
+							"  pm.test(\"Response body is not empty for endpoint GET /design/projects/{{projectId}}\", function () {",
+							"    pm.expect(pm.response.text()).not.to.be.empty;",
+							"  });",
+							"",
+							"  pm.test(\"Response body contains expected property userId for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.userId).to.eql(expectedData.userId);",
+							"  });",
+							"",
+							"  pm.test(\"Response body contains expected property workspaceId for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.workspaceId).to.eql(expectedData.WorkspaceId);",
+							"  });",
+							"",
+							"    pm.test(\"Response body contains expected property projectId for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.id).to.eql(expectedData.projectId);",
+							"  });",
+							"",
+							"    pm.test(\"Response body contains expected property type for endpoint POST /design/projects\", function () {",
+							"    pm.expect(responseData.type).to.eql(expectedData.Type);",
+							"  });",
+							"} catch (error) {",
+							"  console.log(\"Error: \" + error);",
+							"}",
+							"",
+							"// Set the maximum response time in milliseconds",
+							"const maxResponseTime = 2000;",
+							"",
+							"try {",
+							"  // Get the response time in milliseconds",
+							"  const responseTime = pm.response.responseTime;",
+							"",
+							"  // Verify that the response time is within the allowed limit",
+							"  pm.expect(responseTime).to.be.below(maxResponseTime);",
+							"} catch (err) {",
+							"  // Log the error message and set the test result to failed",
+							"  console.log(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  pm.test(\"Response time is within limit\", () => {",
+							"    pm.expect.fail(`Response time was ${responseTime} ms, expected below ${maxResponseTime} ms`);",
+							"  });",
+							"}",
+							"",
+							"// Define the JSON schema",
+							"const schema = {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"created\": { \"type\": \"number\" },",
+							"    \"description\": { \"type\": \"string\" },",
+							"    \"id\": { \"type\": \"string\" },",
+							"    \"lastModified\": { \"type\": \"number\" },",
+							"    \"name\": { \"type\": \"string\" },",
+							"    \"userId\": { \"type\": \"string\" }",
+							"  },",
+							"  \"required\": [\"created\", \"description\", \"id\", \"lastModified\", \"name\", \"userId\"]",
+							"};",
+							"",
+							"// Validate the response body against the schema",
+							"// tv4 is a JSON schema validation library for JavaScript",
+							"// tv4 is used to validate the response body against that schema in the Test Scripts",
+							"const isValid = tv4.validate(responseData, schema);",
+							"",
+							"// Assert that the response body is valid",
+							"pm.test(\"JSON schema is valid for endpoint GET /design/projects/{{projectId}}\", function() {",
+							"    pm.expect(isValid).to.be.true;",
+							"});",
+							"",
+							"// Verify if the response body contains an error code",
+							"if (responseData.error !== undefined) {",
+							"  // Handle the error accordingly",
+							"  console.log(responseData.status);",
+							"  switch (responseData.status) {",
+							"    case 401:",
+							"      pm.test('Unauthorized error - status 401 for endpoint GET /design/projects/{{projectId}}', function() {",
+							"        pm.expect(responseData.error).to.equal('Unauthorized');",
+							"      });",
+							"      break;",
+							"    case 404:",
+							"      pm.test('Resource not found error - status 404 for endpoint GET /design/projects/{{projectId}}', function() {",
+							"        pm.expect(responseData.error).to.equal('Resource not found');",
+							"      });",
+							"      break;",
+							"    case 500:",
+							"      pm.test('Internal server error - status 500 for endpoint GET /design/projects/{{projectId}}', function() {",
+							"        pm.expect(responseData.error).to.equal('Internal server error');",
+							"      });",
+							"      break;",
+							"    default:",
+							"      pm.test('Unknown error view logs for endpoint GET /design/projects/{{projectId}}', function() {",
+							"        pm.expect.fail(`Received unknown error code: ${responseData.status}`);",
+							"      });",
+							"  }",
+							"}",
+							"",
+							"// Verify if a environment is set correctly ",
+							"if (pm.environment && pm.environment.name) {",
+							"  console.log(\"Environment is defined:\", pm.environment.name);",
+							"  pm.test(\"Environment is defined as: \" + pm.environment.name, function() {",
+							"    pm.expect(pm.environment.name).to.be.ok;",
+							"  });",
+							"} else {",
+							"  console.log(\"Environment is not defined\");",
+							"  pm.test(\"Environment is not defined\", function() {",
+							"    pm.expect.fail(\"Environment is not defined\");",
+							"  });",
+							"}",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/design/projects/{{projectId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"design",
+						"projects",
+						"{{projectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204 for endpoint DELETE /design/projects/{{projectId}}\", function () {",
+							"    try {",
+							"        pm.expect(pm.response.code).to.equal(204);",
+							"    } catch (err) {",
+							"        console.log(\"Status code is not 204: \" + err);",
+							"        throw new Error(\"Status code is not 204\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authority",
+						"value": "api.octoperf.com"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJvY3RvcGVyZiIsImlkIjoiSHhnY0hvY0Jra0NTd3F5SW0wZFIiLCJleHAiOjE2ODEzMTM3NTUsImlhdCI6MTY4MTIyNzM1NSwiaGFzaCI6ImZmYzQ0MDE2YjA1Y2Q0NjcxNTBlNzk5MmY0Y2UwNzY5In0.oXQOC2SH2nFtosH44cqwomuyLmxHq7qQHYPvi51IIpA"
+					},
+					{
+						"key": "cookie",
+						"value": "_ga=GA1.1.388003686.1679836773; slaask-token-5a5eed8e193aa4456766852b0d3bdd64=pk3uhokga7dhdondwzwcsvjqkdk8ri1hemktpdvks3; __stripe_mid=5c90b8c2-19ac-4e39-b4ae-4e2dff6b9daf1a7399; slaask-token-spk-914bb45d-bab2-40eb-a7f5-b9d5dc31679b=29ypoappjlhvixqf3gh89jp6ex7xrinjfgzw6hhcw6g; ab.storage.sessionId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225d9805af-82fb-c4d3-3269-6bda609383a0%22%2C%22e%22%3A1680363870409%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270409%7D; ab.storage.deviceId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%225b5f7d83-7ea2-8847-86c3-a946bacba285%22%2C%22c%22%3A1679836783852%2C%22l%22%3A1680360270410%7D; ab.storage.userId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%227640d69d-ebe9-456b-8514-6dd6f5a5431c%22%2C%22c%22%3A1680360270409%2C%22l%22%3A1680360270410%7D; __stripe_sid=c56de830-7b6b-437e-8370-c413aeeca57b837132; _ga_Q0Q7BY8NRR=GS1.1.1680655896.11.1.1680655909.0.0.0"
+					},
+					{
+						"key": "dnt",
+						"value": "1"
+					},
+					{
+						"key": "origin",
+						"value": "https://api.octoperf.com"
+					},
+					{
+						"key": "referer",
+						"value": "https://api.octoperf.com/app/"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/design/projects/{{projectId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"design",
+						"projects",
+						"{{projectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Workspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204 for endpoint DELETE /design/projects/{{projectId}}\", function () {",
+							"    try {",
+							"        pm.expect(pm.response.code).to.equal(204);",
+							"    } catch (err) {",
+							"        console.log(\"Status code is not 204: \" + err);",
+							"        throw new Error(\"Status code is not 204\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/workspaces/{{WorkspaceId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"workspaces",
+						"{{WorkspaceId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "https://api.octoperf.com",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "tla.jiraone@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "test12",
+			"type": "string"
+		}
+	]
+}
